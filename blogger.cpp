@@ -23,7 +23,7 @@ blogger* create_blogger(char* name, char* url, char* descr) {
 void add_photo(blogger* b, photo* p) {
 	b->photo_count++; // увеличение количества фото на единицу
 
-	if (b->photos == NULL) { // если массив фото пустой, то выделить пам€ть дл€ одного элемента
+	if (!b->photos) { // если массив фото пустой, то выделить пам€ть дл€ одного элемента
 		b->photos = (photo*)malloc(sizeof(photo));
 	}
 	else { // иначе перевыделить пам€ть дл€ увеличенного массива фото 
@@ -40,7 +40,7 @@ void add_video(blogger* b, video* v){
 
 	b->video_count++; // увеличение количества видео на едининицу
 
-	if (b->videos == NULL)  // если массив видео пустой, то выделить пам€ть дл€ одного элемента
+	if (!b->videos)  // если массив видео пустой, то выделить пам€ть дл€ одного элемента
 	{	
 		b->videos = (video*)malloc(sizeof(video));
 	}
@@ -58,32 +58,51 @@ void add_video(blogger* b, video* v){
 
 void free_blogger(blogger* b)
 {
-	if (b == nullptr) return; // если указатель на блогера пустой, то ничего не делать
+	if (!b) return; // если указатель на блогера пустой, то ничего не делать
 
-	free(b->name); // освободить пам€ть от имени блогера
-	free(b->url);
-	free(b->description);
+	if(b->name) free(b->name); // освободить пам€ть от имени блогера
+	if (b->url) free(b->url);
+	if (b->description) free(b->description);
 
 	for (int i = 0; i < b->photo_count; i++) { // дл€ каждого фото в массиве фото
 		
 		free_photo(&b->photos[i]);
 	}
+	if(b->photos)free(b->photos); // освободить пам€ть от массива фото
 
-	free(b->photos); // освободить пам€ть от массива фото
 
 	for (int i = 0; i < b->video_count; i++) { // дл€ каждого видео в массиве видео
 		
 		free_video(&b->videos[i]);
 	}
-
-	free(b->videos); // освободить пам€ть от массива видео
+	if(b->videos)free(b->videos); // освободить пам€ть от массива видео
 
 	free(b); // освободить пам€ть от блогера
 }
 
+void free_non_dinamic_blogger(blogger* b) {
+	
+	if (b->name) free(b->name); // освободить пам€ть от имени блогера
+	if (b->url) free(b->url);
+	if (b->description) free(b->description);
+
+	for (int i = 0; i < b->photo_count; i++) { // дл€ каждого фото в массиве фото
+
+		free_photo(&b->photos[i]);
+	}
+	if (b->photos)free(b->photos); // освободить пам€ть от массива фото
+
+
+	for (int i = 0; i < b->video_count; i++) { // дл€ каждого видео в массиве видео
+
+		free_video(&b->videos[i]);
+	}
+	if (b->videos)free(b->videos); // освободить пам€ть от массива видео
+}
+
 void print_blogger(blogger* b) {
 
-	if (b == nullptr) return; // если указатель на блогера пустой, то ничего не выводить
+	if (!b) return; // если указатель на блогера пустой, то ничего не выводить
 
 	printf("\n»м€ блогера: %s\n", b->name); // вывести им€ блогера
 	printf(" оличество подписчиков: %d\n", b->followers); // вывести количество подписчиков
@@ -109,11 +128,7 @@ void print_blogger(blogger* b) {
 			printf("ѕросмотры: %d | Ћайки: %d | ƒизлайки: %d |  омментарии: %d\n\n", b->videos[i].views, b->videos[i].likes, b->videos[i].dislikes, b->videos[i].comments_count);
 
 		}
-
-	
 }
-
-
 
 void input_blogger(blogger* b)
 {
@@ -124,19 +139,19 @@ void input_blogger(blogger* b)
 	char url[url_lenght];
 	char description[description_lenght];
 
-	if (b->name != nullptr && b->name != NULL) free(b->name);
+	if (b->name) free(b->name);
 	printf("¬ведите им€ блоггера: ");
 	fgets(name, sizeof(name), stdin);
 	*(strchr(name, '\n')) = 0;
 	b->name = _strdup(name);
 	
-	free(b->url);
+	if (b->url) free(b->url);
 	printf("¬ведите ссылку на блоггера: ");
 	fgets(url, sizeof(url), stdin);
 	*(strchr(url, '\n')) = 0;
 	b->url = _strdup(url);
 
-	free(b->description);
+	if (b->description) free(b->description);
 	printf("¬ведите описание блоггера: ");
 	fgets(description, sizeof(description), stdin);
 	*(strchr(description, '\n')) = 0;

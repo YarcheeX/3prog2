@@ -8,9 +8,9 @@ struct photo {
 	char* description = nullptr;
 	char* url = nullptr; // ссылка на фото
 	struct upload_date date; // дата загрузки фото 
-	int views; // количество просмотров фото
-	int likes; // количество лайков фото
-	int dislikes;
+	int views = 0; // количество просмотров фото
+	int likes = 0; // количество лайков фото
+	int dislikes = 0;
 	struct comment* comments = nullptr;
 	int comments_count = 0;
 };
@@ -21,4 +21,5 @@ void like_photo(photo* p, int likes);
 void dislike_photo(photo* p, int dislikes);
 void view_photo(photo* p, int views);
 void free_photo(photo* p);
+void free_non_dynamic_photo(photo* p);
 void input_photo(photo* p);

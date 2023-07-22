@@ -14,4 +14,5 @@ struct comment {
 comment* create_comment(char* text, char* author, upload_date d);
 void add_answer(comment* c, answer* a);
 void free_comment(comment *c);
+void free_non_dynamic_comment(comment* c);
 void input_comment(comment* c);

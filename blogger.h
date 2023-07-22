@@ -24,6 +24,8 @@ void add_video(blogger* b, video* v);
 
 void free_blogger(blogger* b);
 
+void free_non_dinamic_blogger(blogger* b);
+
 void print_blogger(blogger* b);
 
 void input_blogger(blogger* b);

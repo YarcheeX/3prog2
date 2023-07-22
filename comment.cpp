@@ -33,13 +33,28 @@ comment* create_comment(char* text, char* author, upload_date d)
 
 void free_comment(comment *c) {
 
-	free(c->text);
-	free(c->author);
+	if (!c) return;
+
+	if(c->text) free(c->text);
+	if(c->author) free(c->author);
 	for (int i = 0; i < c->answers_count; i++) {
 
 		free_answer(&c->answers[i]);
 	}
-	free(c->answers);
+	if(c->answers) free(c->answers);
+
+	free(c);
+}
+
+void free_non_dynamic_comment(comment* c) {
+
+	if (c->text) free(c->text);
+	if (c->author) free(c->author);
+	for (int i = 0; i < c->answers_count; i++) {
+
+		free_answer(&c->answers[i]);
+	}
+	if (c->answers) free(c->answers);
 }
 
 void input_comment(comment* c)
@@ -48,13 +63,13 @@ void input_comment(comment* c)
 	char author[name_lenght];
 	upload_date date;
 
-	free(c->author);
+	if (c->text) free(c->author);
 	printf("Введите имя автора коментария: ");
 	fgets(author, sizeof(author), stdin);
 	*(strchr(author, '\n')) = 0;
 	c->author = _strdup(author);
 
-	free(c->text);
+	if (c->author) free(c->text);
 	printf("Введите текст коментария: ");
 	fgets(text, sizeof(text), stdin);
 	*(strchr(text, '\n')) = 0;

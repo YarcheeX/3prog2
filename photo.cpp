@@ -46,14 +46,32 @@ void view_photo(photo* p, int views) {
 
 void free_photo(photo* p)
 {
-	free(p->name);
-	free(p->description);
-	free(p->url);
+	if (!p) return;
+	
+	if (p->name) free(p->name);
+	if (p->url) free(p->description);
+	if (p->description) free(p->url);
 	for (int i = 0; i < p->comments_count; i++) {
 
 		free_comment(&p->comments[i]);
 	}
-	free(p->comments);
+	
+	if(p->comments) free(p->comments);
+
+	free(p);
+}
+
+void free_non_dynamic_photo(photo* p) {
+
+	if (p->name) free(p->name);
+	if (p->url) free(p->description);
+	if (p->description) free(p->url);
+	for (int i = 0; i < p->comments_count; i++) {
+
+		free_comment(&p->comments[i]);
+	}
+
+	if (p->comments) free(p->comments);
 }
 
 
@@ -67,24 +85,23 @@ void input_photo(photo* p)
 	char description[description_lenght];
 	upload_date date;
 
-	free(p->name);
+	if (p->name) free(p->name);
 	printf("¬ведите им€ фото: ");
 	fgets(name, sizeof(name), stdin);
 	*(strchr(name, '\n')) = 0;
 	p->name = _strdup(name);
 
-	free(p->url);
+	if (p->url) free(p->description);
 	printf("¬ведите ссылку на фото: ");
 	fgets(url, sizeof(url), stdin);
 	*(strchr(url, '\n')) = 0;
 	p->url = _strdup(url);
 
-	free(p->description);
+	if (p->description) free(p->url);
 	printf("¬ведите описание фото: ");
 	fgets(description, sizeof(description), stdin);
 	*(strchr(description, '\n')) = 0;
 	p->description = _strdup(description);
 
 	input_date(&p->date);
-
 }

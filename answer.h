@@ -17,3 +17,4 @@ struct answer{
 
 answer* create_answer(char* text, char* author, upload_date d);
 void free_answer(answer* a);
+void free_non_dynamic_answer(answer* a);

@@ -1,14 +1,8 @@
-﻿
-
-#include "blogger.h"
+﻿#include "blogger.h"
 #include <stdio.h>
 #include <string.h>
 #include <locale.h>
 #include <Windows.h>
-
-
-
-
 
 
 int main()
@@ -39,5 +33,8 @@ int main()
 
 	print_blogger(&Alex);
 	print_blogger(Ivan);
+
+	free_non_dinamic_blogger(&Alex);
+	free_blogger(Ivan);
 
 }
