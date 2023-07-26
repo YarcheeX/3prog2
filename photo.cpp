@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+//создание фото
 photo* create_photo(const char* name, const char* descr, const char* url, upload_date date)
 {
 	photo* pho = (photo*)malloc(sizeof(photo));
@@ -16,28 +18,34 @@ photo* create_photo(const char* name, const char* descr, const char* url, upload
 	return pho;
 }
 
+//добавление фото
 void add_comment_photo(photo* p, comment* c) {
 
-	p->comments_count++; // увеличение количества комментариев на единицу
+	p->comments_count++; 
 
+	//перевыделить память при добавлении комментария
 	p->comments = (comment**)realloc(p->comments, sizeof(comment*) * p->comments_count);
 
 	p->comments[p->comments_count - 1] = c;
 
 }
 
+//лайкнуть фото
 void like_photo(photo* p, int likes){
 	p->likes += likes;
 }
 
+//дизлайкнуть фото
 void dislike_photo(photo* p, int dislikes){
 	p->dislikes += dislikes;
 }
 
+//посмотреть фото
 void view_photo(photo* p, int views) {
 	p->views += views;
 }
 
+//освободить фото
 void free_photo(photo* p)
 {
 	if (!p) return;
@@ -63,7 +71,7 @@ void free_photo(photo* p)
 	p = nullptr;
 }
 
-
+//ввод фото
 void input_photo(photo* p)
 {
 
@@ -95,6 +103,7 @@ void input_photo(photo* p)
 	input_date(&p->date);
 }
 
+//инициализация фото
 void init_photo(photo* p)
 {
 	p->name = nullptr;

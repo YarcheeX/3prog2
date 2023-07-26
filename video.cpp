@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-
+//создание видео
 video* create_video(const char* name, const char* descr, const char* url, upload_date date)
 {
 	video* vid = (video*)malloc(sizeof(video));
@@ -17,6 +17,7 @@ video* create_video(const char* name, const char* descr, const char* url, upload
 	return vid;
 }
 
+//добавление комментари€
 void add_comment_video(video* v, comment* c) {
 
 	v->comments_count++; // увеличение количества комментариев на единицу
@@ -27,22 +28,25 @@ void add_comment_video(video* v, comment* c) {
 
 }
 
-
+//лайкнуть видео
 void like_video(video* p, int likes)
 {
 	p->likes += likes;
 }
 
+//дизлайкнуть видео
 void dislike_video(video* p, int dislikes)
 {
 	p->dislikes += dislikes;
 }
 
+//посмотреть видео
 void view_video(video* p, int views)
 {
 	p->views += views;
 }
 
+//освобождение видео
 void free_video(video* v)
 {
 	if (!v) return;
@@ -71,7 +75,7 @@ void free_video(video* v)
 	v = nullptr;
 }
 
-
+//ввод видео
 void input_video(video* v)
 {
 	printf("\n¬вод видео.\n");
@@ -103,6 +107,7 @@ void input_video(video* v)
 
 }
 
+//инициализаци€ видео
 void init_video(video* v)
 {
 	v->name = nullptr;

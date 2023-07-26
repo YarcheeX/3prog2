@@ -4,11 +4,11 @@
 
 struct comment {
 
-	upload_date date;
-	char* text = nullptr;
-	char* author = nullptr;
-	answer** answers = nullptr;
-	int answers_count = 0;
+	upload_date date;          //дата комментария
+	char* author = nullptr;	   //имя автора комментария
+	char* text = nullptr;	   //текст комментария
+	answer** answers = nullptr;//массив ответов на комментарий
+	int answers_count = 0;	   //кол-во ответов
 };
 
 comment* create_comment(const char* text, const char* author, upload_date d);

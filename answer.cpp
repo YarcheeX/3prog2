@@ -1,6 +1,7 @@
 #include "answer.h"
 #include <stdlib.h>
 
+//создание ответа
 answer* create_answer(const char* text, const char* author, upload_date d)
 {
 	answer* ans = (answer*)malloc(sizeof(answer));
@@ -12,10 +13,12 @@ answer* create_answer(const char* text, const char* author, upload_date d)
 	return ans;
 }
 
+//освобождение ответа
 void free_answer(answer* a)
 {
 	if (!a) return;
 
+	
 	if (a->author) {
 		free(a->author);
 		a->author = nullptr;
@@ -28,6 +31,7 @@ void free_answer(answer* a)
 	a = nullptr;
 }
 
+//инициализация ответа
 void init_answer(answer* a)
 {
 	a->text = nullptr;

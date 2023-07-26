@@ -10,9 +10,9 @@
 
 struct answer{
 
-	char* text = nullptr;
-	char* author = nullptr;
-	upload_date date;
+	char* author = nullptr;//название автора
+	char* text = nullptr;  //текст 
+	upload_date date;	   //дата 
 };
 
 

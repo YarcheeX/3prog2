@@ -5,14 +5,14 @@
 
 struct blogger {
 
-	char* name = nullptr;
-	char* url = nullptr;
-	char* description = nullptr;
-	int followers = 0;
-	photo** photos = nullptr;
-	int photo_count = 0;
-	video** videos = nullptr;
-	int video_count = 0;
+	char* name = nullptr;        //название блоггера
+	char* url = nullptr;		 //ссылка на блоггера
+	char* description = nullptr; //описание канала блоггера
+	int followers = 0;			 //количество подписчиков
+	photo** photos = nullptr;	 //массив фото
+	int photo_count = 0;		 //кол-во фото
+	video** videos = nullptr;	 //массив видео
+	int video_count = 0;		 //кол-во видео
 
 };
 

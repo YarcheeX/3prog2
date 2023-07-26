@@ -2,9 +2,9 @@
 
 struct upload_date {
 
-	int day = 0;
-	int month = 0;
-	int year = 0;
+	int day = 0;  //день
+	int month = 0;//мес€ц
+	int year = 0; //год
 };
 
 upload_date create_date(int day, int month, int year);
