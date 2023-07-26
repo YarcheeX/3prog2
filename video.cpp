@@ -5,10 +5,10 @@
 #include <string.h>
 
 
-video* create_video(char* name, char* descr, char* url, upload_date date)
+video* create_video(const char* name, const char* descr, const char* url, upload_date date)
 {
 	video* vid = (video*)malloc(sizeof(video));
-
+	init_video(vid);
 	vid->date = date;
 	vid->name = _strdup(name);
 	vid->description = _strdup(descr);
@@ -20,16 +20,10 @@ video* create_video(char* name, char* descr, char* url, upload_date date)
 void add_comment_video(video* v, comment* c) {
 
 	v->comments_count++; // увеличение количества комментариев на единицу
-	if (!v->comments)  // если массив комментариев пустой, то выделить память для одного элемента
-	{
-		v->comments = (comment*)malloc(sizeof(comment));
-	}
-	else  // иначе перевыделить память для увеличенного массива комментариев 
-	{
-		v->comments = (comment*)realloc(v->comments, sizeof(comment) * v->comments_count);
-	}
+	
+	v->comments = (comment**)realloc(v->comments, sizeof(comment*) * v->comments_count);
 
-	v->comments[v->comments_count - 1] = *c;
+	v->comments[v->comments_count - 1] = c;
 
 }
 
@@ -53,31 +47,35 @@ void free_video(video* v)
 {
 	if (!v) return;
 	
-	if (v->name) free(v->name);
-	if (v->url) free(v->description);
-	if (v->description) free(v->url);
-	for (int i = 0; i < v->comments_count; i++) {
-
-		free_comment(&v->comments[i]);
+	if (v->name) {
+		free(v->name);
+		v->name = nullptr;
+		printf("Имя очищено. %s\n", v->name);
 	}
-	
-	if(v->comments)free(v->comments);
+	if (v->url) {
+		free(v->url);
+		v->url = nullptr;
+		printf("Урл очищено\n");
+	}
+	if (v->description) {
+		free(v->description);
+		v->description = nullptr;
+		printf("Описание очищено\n");
+	}
+	for (int i = v->comments_count-1; i >= 0; i--) {
 
+		free_comment(v->comments[i]);
+	}
+	if (v->comments) {
+		free(v->comments);
+		v->comments = nullptr;
+		printf("Массив коментов очищен\n");
+	}
 	free(v);
+	v = nullptr;
+	printf("Видео очищено\n");
 }
 
-void free_non_dynamic_video(video* v) {
-
-	if (v->name) free(v->name);
-	if (v->url) free(v->description);
-	if (v->description) free(v->url);
-	for (int i = 0; i < v->comments_count; i++) {
-
-		free_comment(&v->comments[i]);
-	}
-
-	if (v->comments) free(v->comments);
-}
 
 void input_video(video* v)
 {
@@ -91,23 +89,36 @@ void input_video(video* v)
 	if (v->name) free(v->name);
 	printf("Введите название видео: ");
 	fgets(name, sizeof(name), stdin);
-	*(strchr(name, '\n')) = 0;
+	name[strlen(name) - 1] = '\0';
 	v->name = _strdup(name);
 
 	if (v->url) free(v->url);
 	printf("Введите ссылку на видео: ");
 	fgets(url, sizeof(url), stdin);
-	*(strchr(url, '\n')) = 0;
+	url[strlen(url) - 1] = '\0';
 	v->url = _strdup(url);
 
 	if (v->description) free(v->description);
 	printf("Введите описание видео: ");
 	fgets(description, sizeof(description), stdin);
-	*(strchr(description, '\n')) = 0;
+	description[strlen(description) - 1] = '\0';
 	v->description = _strdup(description);
 
 	input_date(&v->date);
 
+}
+
+void init_video(video* v)
+{
+	v->name = nullptr;
+	v->description = nullptr;
+	v->url = nullptr;
+	v->comments = nullptr;
+	init_date(&v->date);
+	v->views = 0;
+	v->likes = 0;
+	v->dislikes = 0;
+	v->comments_count = 0;
 }
 
 

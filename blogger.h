@@ -9,14 +9,14 @@ struct blogger {
 	char* url = nullptr;
 	char* description = nullptr;
 	int followers = 0;
-	struct photo* photos = nullptr;
+	photo** photos = nullptr;
 	int photo_count = 0;
-	struct video* videos = nullptr;
+	video** videos = nullptr;
 	int video_count = 0;
 
 };
 
-blogger* create_blogger(char* name, char* url, char* descr);
+blogger* create_blogger(const char* name, const char* url, const char* descr);
 
 void add_photo(blogger* b, photo *p);
 
@@ -24,8 +24,8 @@ void add_video(blogger* b, video* v);
 
 void free_blogger(blogger* b);
 
-void free_non_dinamic_blogger(blogger* b);
-
 void print_blogger(blogger* b);
 
 void input_blogger(blogger* b);
+
+void init_blogger(blogger* b);

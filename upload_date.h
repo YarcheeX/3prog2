@@ -9,3 +9,4 @@ struct upload_date {
 
 upload_date create_date(int day, int month, int year);
 void input_date(upload_date* date);
+void init_date(upload_date* date);

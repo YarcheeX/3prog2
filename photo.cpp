@@ -4,10 +4,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-photo* create_photo(char* name, char* descr, char* url, upload_date date)
+photo* create_photo(const char* name, const char* descr, const char* url, upload_date date)
 {
 	photo* pho = (photo*)malloc(sizeof(photo));
-
+	init_photo(pho);
 	pho->date = date;
 	pho->name = _strdup(name);
 	pho->description = _strdup(descr);
@@ -19,16 +19,10 @@ photo* create_photo(char* name, char* descr, char* url, upload_date date)
 void add_comment_photo(photo* p, comment* c) {
 
 	p->comments_count++; // увеличение количества комментариев на единицу
-	if (p->comments == NULL)  // если массив комментариев пустой, то выделить пам€ть дл€ одного элемента
-	{	
-		p->comments = (comment*)malloc(sizeof(comment));
-	}
-	else  // иначе перевыделить пам€ть дл€ увеличенного массива комментариев 
-	{
-		p->comments = (comment*)realloc(p->comments, sizeof(comment) * p->comments_count);
-	}
 
-	p->comments[p->comments_count - 1] = *c;
+	p->comments = (comment**)realloc(p->comments, sizeof(comment*) * p->comments_count);
+
+	p->comments[p->comments_count - 1] = c;
 
 }
 
@@ -49,29 +43,14 @@ void free_photo(photo* p)
 	if (!p) return;
 	
 	if (p->name) free(p->name);
-	if (p->url) free(p->description);
-	if (p->description) free(p->url);
-	for (int i = 0; i < p->comments_count; i++) {
+	if (p->url) free(p->url);
+	if (p->description) free(p->description);
+	for (int i = p->comments_count-1; i >= 0; i--) {
 
-		free_comment(&p->comments[i]);
+		free_comment(p->comments[i]);
 	}
-	
-	if(p->comments) free(p->comments);
 
 	free(p);
-}
-
-void free_non_dynamic_photo(photo* p) {
-
-	if (p->name) free(p->name);
-	if (p->url) free(p->description);
-	if (p->description) free(p->url);
-	for (int i = 0; i < p->comments_count; i++) {
-
-		free_comment(&p->comments[i]);
-	}
-
-	if (p->comments) free(p->comments);
 }
 
 
@@ -88,20 +67,33 @@ void input_photo(photo* p)
 	if (p->name) free(p->name);
 	printf("¬ведите им€ фото: ");
 	fgets(name, sizeof(name), stdin);
-	*(strchr(name, '\n')) = 0;
+	name[strlen(name) - 1] = '\0';
 	p->name = _strdup(name);
 
-	if (p->url) free(p->description);
+	if (p->url) free(p->url);
 	printf("¬ведите ссылку на фото: ");
 	fgets(url, sizeof(url), stdin);
-	*(strchr(url, '\n')) = 0;
+	url[strlen(url) - 1] = '\0';
 	p->url = _strdup(url);
 
-	if (p->description) free(p->url);
+	if (p->description) free(p->description);
 	printf("¬ведите описание фото: ");
 	fgets(description, sizeof(description), stdin);
-	*(strchr(description, '\n')) = 0;
+	description[strlen(description) - 1] = '\0';
 	p->description = _strdup(description);
 
 	input_date(&p->date);
+}
+
+void init_photo(photo* p)
+{
+	p->name = nullptr;
+	p->description = nullptr;
+	p->url = nullptr; 
+	p->comments = nullptr;
+	init_date(&p->date);  
+	p->views = 0; 
+	p->likes = 0; 
+	p->dislikes = 0;
+	p->comments_count = 0;
 }

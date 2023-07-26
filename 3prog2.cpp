@@ -1,4 +1,8 @@
-﻿#include "blogger.h"
+﻿#define __CRTDBG_MAP_ALLOC
+#include <crtdbg.h>
+#define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#define new DEBUG_NEW
+#include "blogger.h"
 #include <stdio.h>
 #include <string.h>
 #include <locale.h>
@@ -25,16 +29,26 @@ int main()
 	add_comment_photo(&pho, &comm);
 	
 	blogger* Ivan = (blogger*)malloc(sizeof(blogger));
+	init_blogger(Ivan);
 	input_blogger(Ivan);
 	video* v;
-	v = create_video(_strdup("лайфак"), _strdup("zxcbcgb"), _strdup("рабочий"), {10,2,2010});
-	add_comment_video(v, create_comment(_strdup("Шляпа, не работает"), _strdup("Честный пользователь"), { 10, 3, 2010 }));
-
+	v = create_video("лайфак", "рабочий", "zxcvbnm", {10, 2, 2010});
+	add_comment_video(v, create_comment("Шляпа, не работает", "Честный пользователь", { 10, 3, 2010 }));
+	add_comment_video(v, create_comment("вообще залупа ебаная нахуй", "Дурачок ебаный", { 20, 8, 2020 }));
+	add_video(Ivan, v);
 
 	print_blogger(&Alex);
 	print_blogger(Ivan);
 
-	free_non_dinamic_blogger(&Alex);
+	free(pho.name);
+	free(pho.description);
+	free(pho.url);
+	free(comm.text);
+	free(comm.author);
+
 	free_blogger(Ivan);
+
+
+	_CrtDumpMemoryLeaks();
 
 }

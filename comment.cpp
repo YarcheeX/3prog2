@@ -7,23 +7,17 @@
 void add_answer(comment* c, answer* a) {
 
 	c->answers_count++; // увеличение количества ответов на единицу
-	if (c->answers == nullptr)  // если массив ответов пустой, то выделить память для одного элемента
-	{
-		c->answers = (answer*)malloc(sizeof(answer));
-	}
-	else  // иначе перевыделить память для увеличенного массива ответов 
-	{
-		c->answers = (answer*)realloc(c->answers, sizeof(answer) * c->answers_count);
-	}
 	
-	c->answers[c->answers_count - 1] = *a;
+	c->answers = (answer**)realloc(c->answers, sizeof(answer*) * c->answers_count);
+	
+	c->answers[c->answers_count - 1] = a;
 
 }
 
-comment* create_comment(char* text, char* author, upload_date d)
+comment* create_comment(const char* text, const char* author, upload_date d)
 {
 	comment* comm = (comment*)malloc(sizeof(comment));
-
+	init_comment(comm);
 	comm->text = _strdup(text);
 	comm->author = _strdup(author);
 	comm->date = d;
@@ -34,48 +28,59 @@ comment* create_comment(char* text, char* author, upload_date d)
 void free_comment(comment *c) {
 
 	if (!c) return;
-
-	if(c->text) free(c->text);
-	if(c->author) free(c->author);
-	for (int i = 0; i < c->answers_count; i++) {
-
-		free_answer(&c->answers[i]);
+	if (c->text) {
+		free(c->text);
+		c->text = nullptr;
+		printf("Текст очищен\n");
 	}
-	if(c->answers) free(c->answers);
+	if (c->author) {
+		free(c->author);
+		c->author = nullptr;
+		printf("Автор очищен\n");
+	}
+	
+	for (int i = c->answers_count - 1; i >=0 ; i--) {
 
+		free_answer(c->answers[i]);
+	}
+	if (c->answers) {
+		free(c->answers);
+		c->answers = nullptr;
+	}
 	free(c);
-}
-
-void free_non_dynamic_comment(comment* c) {
-
-	if (c->text) free(c->text);
-	if (c->author) free(c->author);
-	for (int i = 0; i < c->answers_count; i++) {
-
-		free_answer(&c->answers[i]);
-	}
-	if (c->answers) free(c->answers);
+	c = nullptr;
+	printf("Комментарий очищен\n");
 }
 
 void input_comment(comment* c)
 {
+	printf("\nВвод комментария.\n");
+
 	char text[comment_lengt];
 	char author[name_lenght];
 	upload_date date;
 
-	if (c->text) free(c->author);
+	if (c->author) free(c->author);
 	printf("Введите имя автора коментария: ");
 	fgets(author, sizeof(author), stdin);
-	*(strchr(author, '\n')) = 0;
+	author[strlen(author) - 1] = '\0';
 	c->author = _strdup(author);
 
-	if (c->author) free(c->text);
+	if (c->text) free(c->text);
 	printf("Введите текст коментария: ");
 	fgets(text, sizeof(text), stdin);
-	*(strchr(text, '\n')) = 0;
+	text[strlen(text) - 1] = '\0';
 	c->text = _strdup(text);
 
 	input_date(&c->date);
 
-	
+}
+
+void init_comment(comment* c)
+{
+	init_date(&c->date);
+	c->text = nullptr;
+	c->author = nullptr;
+	c->answers = nullptr;
+	c->answers_count = 0;
 }
