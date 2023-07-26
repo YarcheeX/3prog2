@@ -50,17 +50,14 @@ void free_video(video* v)
 	if (v->name) {
 		free(v->name);
 		v->name = nullptr;
-		printf("Имя очищено. %s\n", v->name);
 	}
 	if (v->url) {
 		free(v->url);
 		v->url = nullptr;
-		printf("Урл очищено\n");
 	}
 	if (v->description) {
 		free(v->description);
 		v->description = nullptr;
-		printf("Описание очищено\n");
 	}
 	for (int i = v->comments_count-1; i >= 0; i--) {
 
@@ -69,11 +66,9 @@ void free_video(video* v)
 	if (v->comments) {
 		free(v->comments);
 		v->comments = nullptr;
-		printf("Массив коментов очищен\n");
 	}
 	free(v);
 	v = nullptr;
-	printf("Видео очищено\n");
 }
 
 

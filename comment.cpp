@@ -31,12 +31,11 @@ void free_comment(comment *c) {
 	if (c->text) {
 		free(c->text);
 		c->text = nullptr;
-		printf("Текст очищен\n");
+		
 	}
 	if (c->author) {
 		free(c->author);
 		c->author = nullptr;
-		printf("Автор очищен\n");
 	}
 	
 	for (int i = c->answers_count - 1; i >=0 ; i--) {
@@ -49,7 +48,6 @@ void free_comment(comment *c) {
 	}
 	free(c);
 	c = nullptr;
-	printf("Комментарий очищен\n");
 }
 
 void input_comment(comment* c)

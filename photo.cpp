@@ -42,15 +42,25 @@ void free_photo(photo* p)
 {
 	if (!p) return;
 	
-	if (p->name) free(p->name);
-	if (p->url) free(p->url);
-	if (p->description) free(p->description);
+	if (p->name) { 
+		free(p->name);
+		p->name = nullptr;
+	}
+	if (p->url) {
+		free(p->url);
+		p->url = nullptr;
+	}
+	if (p->description) {
+		free(p->description);
+		p->description = nullptr;
+	}
 	for (int i = p->comments_count-1; i >= 0; i--) {
 
 		free_comment(p->comments[i]);
 	}
 
 	free(p);
+	p = nullptr;
 }
 
 

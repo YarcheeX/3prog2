@@ -33,8 +33,8 @@ int main()
 	input_blogger(Ivan);
 	video* v;
 	v = create_video("лайфак", "рабочий", "zxcvbnm", {10, 2, 2010});
-	add_comment_video(v, create_comment("Шляпа, не работает", "Честный пользователь", { 10, 3, 2010 }));
-	add_comment_video(v, create_comment("вообще залупа ебаная нахуй", "Дурачок ебаный", { 20, 8, 2020 }));
+	add_comment_video(v, create_comment("Обман! Не работает", "Честный пользователь", { 10, 3, 2010 }));
+	add_comment_video(v, create_comment("Вообще дезинформация", "Еще честнее", { 20, 8, 2020 }));
 	add_video(Ivan, v);
 
 	print_blogger(&Alex);
@@ -45,6 +45,8 @@ int main()
 	free(pho.url);
 	free(comm.text);
 	free(comm.author);
+	free(pho.comments);
+	free(Alex.photos);
 
 	free_blogger(Ivan);
 

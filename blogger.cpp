@@ -51,15 +51,12 @@ void free_blogger(blogger* b)
 
 	if (b->name) {
 		free(b->name); // освободить память от имени блогера
-		printf("Имя очищено\n");
 	}
 	if (b->url) {
 		free(b->url);
-		printf("Урл очищено\n");
 	}
 	if (b->description) {
 		free(b->description);
-		printf("Описание очищено\n");
 	}
 	for (int i = b->photo_count-1; i >= 0; i--) { // для каждого фото в массиве фото
 		
@@ -67,7 +64,6 @@ void free_blogger(blogger* b)
 	}
 	if (b->photos) {
 		free(b->photos); // освободить память от массива фото
-		printf("Массив фото очищен\n");
 	}
 	for (int i = b->video_count-1; i >= 0; i--) { // для каждого видео в массиве видео
 		
@@ -75,11 +71,9 @@ void free_blogger(blogger* b)
 	}
 	if (b->videos) {
 		free(b->videos);
-		printf("Массив видео очищен\n");
 	}
 	free(b); // освободить память от блогера
-	printf("Блоггер очищен\n");
-
+	b = nullptr;
 }
 
 
