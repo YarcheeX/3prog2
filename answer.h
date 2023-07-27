@@ -15,7 +15,7 @@ struct answer{
 	upload_date date;	   //дата 
 };
 
-
 answer* create_answer(const char* text, const char* author, upload_date d);
+void print_answer(answer* a);
 void free_answer(answer* a);
 void init_answer(answer* a);

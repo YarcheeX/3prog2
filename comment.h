@@ -12,6 +12,7 @@ struct comment {
 };
 
 comment* create_comment(const char* text, const char* author, upload_date d);
+void print_comment(comment* c);
 void add_answer(comment* c, answer* a);
 void free_comment(comment *c);
 void input_comment(comment* c);

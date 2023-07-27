@@ -75,6 +75,12 @@ void free_video(video* v)
 	v = nullptr;
 }
 
+void print_video(video* v)
+{
+	printf("Название: %s (%s) | Дата: %d.%d.%d\n", v->name, v->url, v->date.day, v->date.month, v->date.year);
+	printf("Просмотры: %d | Лайки: %d | Дизлайки: %d | Комментарии: %d\n", v->views, v->likes, v->dislikes, v->comments_count);
+}
+
 //ввод видео
 void input_video(video* v)
 {

@@ -21,5 +21,6 @@ void like_video(video* p, int likes);
 void dislike_video(video* p, int likes);
 void view_video(video* p, int views);
 void free_video(video* v);
+void print_video(video* v);
 void input_video(video* v);
 void init_video(video* v);

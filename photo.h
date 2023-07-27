@@ -21,5 +21,6 @@ void like_photo(photo* p, int likes);
 void dislike_photo(photo* p, int dislikes);
 void view_photo(photo* p, int views);
 void free_photo(photo* p);
+void print_photo(photo* p);
 void input_photo(photo* p);
 void init_photo(photo* p);

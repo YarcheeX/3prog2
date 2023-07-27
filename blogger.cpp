@@ -115,18 +115,16 @@ void print_blogger(blogger* b) {
 		printf("Фото отсутствуют.\n");
 	else
 		for (int i = 0; i < b->photo_count; i++) {
-			printf("%d. %s (%s) - %d.%d.%d\n", i + 1, b->photos[i]->name, b->photos[i]->url, b->photos[i]->date.day, b->photos[i]->date.month, b->photos[i]->date.year); // вывести номер, название, ссылку и дату загрузки фото
-			printf("Просмотры: %d | Лайки: %d | Дизлайки: %d | Комментарии: %d\n\n", b->photos[i]->views, b->photos[i]->likes, b->photos[i]->dislikes, b->photos[i]->comments_count);
+			print_photo(b->photos[i]);
 		}
 
 
-	printf("Видео:\n"); 
+	printf("\nВидео:\n"); 
 	if (b->video_count == 0)
 		printf("Видео отсутствуют.\n");
 	else
 		for (int i = 0; i < b->video_count; i++) { 
-			printf("%d. %s (%s) - %d.%d.%d\n", i + 1, b->videos[i]->name, b->videos[i]->url, b->videos[i]->date.day, b->videos[i]->date.month, b->videos[i]->date.year); // вывести номер, название, ссылку и дату загрузки видео
-			printf("Просмотры: %d | Лайки: %d | Дизлайки: %d | Комментарии: %d\n\n", b->videos[i]->views, b->videos[i]->likes, b->videos[i]->dislikes, b->videos[i]->comments_count);
+			print_video(b->videos[i]);
 		}
 }
 

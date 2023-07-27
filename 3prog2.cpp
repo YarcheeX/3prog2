@@ -31,8 +31,8 @@ int main()
 	blogger* Ivan = (blogger*)malloc(sizeof(blogger));													//
 	init_blogger(Ivan);																					//
 	input_blogger(Ivan);																				//
-	video* v = create_video("лайфак", "рабочий", "zxcvbnm", {10, 2, 2010});								//динамические струткуры
-	add_comment_video(v, create_comment("Обман! Не работает", "Честный пользователь", { 10, 3, 2010 }));//
+	video* v = create_video("лайфак", "рабочий", "zxcvbnm", {10, 2, 2020});								//динамические струткуры
+	add_comment_video(v, create_comment("Обман! Не работает", "Честный пользователь", { 14, 3, 2020 }));//
 	add_comment_video(v, create_comment("Полная дезинформация", "Еще честнее", { 20, 8, 2020 }));		//
 	add_video(Ivan, v);
 

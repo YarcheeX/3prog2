@@ -31,6 +31,13 @@ void free_answer(answer* a)
 	a = nullptr;
 }
 
+//вывод ответа
+void print_answer(answer* a)
+{
+	printf("enАвтор: %s | Дата: %d.%d.%d\n", a->author, a->date.day, a->date.month, a->date.year);
+	printf("Текст: %s\n", a->text);
+}
+
 //инициализация ответа
 void init_answer(answer* a)
 {

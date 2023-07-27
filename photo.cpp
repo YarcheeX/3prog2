@@ -71,6 +71,12 @@ void free_photo(photo* p)
 	p = nullptr;
 }
 
+void print_photo(photo* p)
+{
+	printf("Название: %s (%s) | Дата: %d.%d.%d\n", p->name, p->url, p->date.day, p->date.month, p->date.year);
+	printf("Просмотры: %d | Лайки: %d | Дизлайки: %d | Комментарии: %d\n", p->views, p->likes, p->dislikes, p->comments_count);
+}
+
 //ввод фото
 void input_photo(photo* p)
 {

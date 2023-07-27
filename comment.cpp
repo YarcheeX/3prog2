@@ -61,6 +61,18 @@ void free_comment(comment *c) {
 	c = nullptr;
 }
 
+//вывод комментария
+void print_comment(comment* c)
+{
+	printf("\nАвтор: %s | Дата: %d.%d.%d\n", c->author, c->date.day, c->date.month, c->date.year);
+	printf("Текст: %s\n", c->text);
+	printf("Ответы:\n");
+	for (int i = 0; i < c->answers_count; i++) {
+		printf("%d) ", i);
+		print_answer(c->answers[i]);
+	}
+}
+
 //ввод комментария
 void input_comment(comment* c)
 {
